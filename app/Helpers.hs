@@ -1,0 +1,133 @@
+module Helpers where
+
+import Control.Concurrent
+import Data.List
+import Data.List.Split
+import System.Directory
+
+-- =======================================================================
+-- ========================= V A R I A B L E S ===========================
+-- =======================================================================
+reset = "\x1b[0m"
+
+black = "\x1b[30m"
+
+red = "\x1b[31m"
+
+green = "\x1b[32m"
+
+yellow = "\x1b[33m"
+
+blue = "\x1b[34m"
+
+magenta = "\x1b[35m"
+
+cyan = "\x1b[36m"
+
+white = "\x1b[37m"
+
+-- =======================================================================
+-- ========================= F U N C T I O N S ===========================
+-- =======================================================================
+say x color =
+  if (null color)
+    then putStrLn ""
+    else putStrLn (color ++ x ++ reset)
+
+welcoming =
+  do
+    putStrLn cyan
+    putStrLn ""
+    putStrLn "           W E L C O  M E   T O   i S U P P L Y           "
+    putStrLn reset
+
+showMenu = do
+  putStrLn "\x1b[36m"
+  putStrLn "                      C O M M A N D S                     "
+  putStrLn "     \x1b[33m1\x1b[36m> Create Account         \x1b[33m8\x1b[36m> Delete Tracker         "
+  putStrLn "     \x1b[33m2\x1b[36m> Update Account         \x1b[33m9\x1b[36m> Export File to CSV     "
+  putStrLn "     \x1b[33m3\x1b[36m> Delete Account         \x1b[33m10\x1b[36m> Delete Company Profile"
+  putStrLn "     \x1b[33m4\x1b[36m> Create Company Profile \x1b[33mdefault\x1b[36m> EXIT            "
+  putStrLn "     \x1b[33m5\x1b[36m> Check Tracker                                     "
+  putStrLn "     \x1b[33m6\x1b[36m> Make A Tracker                                    "
+  putStrLn "     \x1b[33m7\x1b[36m> Update Tracker                                    "
+  putStrLn ""
+  putStrLn "\x1b[0m"
+
+prompt :: String -> IO String
+prompt x = do
+  putStrLn (cyan ++ x ++ reset)
+  answer <- getLine
+  if (null answer)
+    then prompt x
+    else return answer
+
+-- splitString :: String -> Maybe [Char] -> String
+-- splitString x null = splitString x " | "
+splitString str  = splitOn " | " str
+splitLog str = splitOn " -- : " str
+
+findUser :: String -> String -> String -> [String] -> Int -> Int
+findUser username email password content counter
+  | counter < 0 = findUser username email password content 0
+  | (username == (splitString (content !! counter) !! 0))
+      && (email == (splitString (content !! counter) !! 1))
+      && (password == (splitString (content !! counter) !! 2)) =
+      counter
+  | otherwise = findUser username email password content (counter + 1)
+
+findCompanies :: (String, String, String, String, String, String, String) -> [String] -> Int -> Int
+findCompanies (name, address, cType, number, picName, picNumber, manager) content counter
+  | counter < 0 = findCompanies (name, address, cType, number, picName, picNumber, manager) content 0
+  | (name == (splitString (content !! counter) !! 0))
+      && (address == (splitString (content !! counter) !! 1))
+      && (cType == (splitString (content !! counter) !! 2))
+      && (number == (splitString (content !! counter) !! 3))
+      && (picName == (splitString (content !! counter) !! 4))
+      && (picNumber == (splitString (content !! counter) !! 5))
+      && (manager == (splitString (content !! counter) !! 6)) =
+      counter
+  | otherwise = findCompanies (name, address, cType, number, picName, picNumber, manager) content (counter + 1)
+
+
+-- findTracker :: String -> String
+findTracker code content counter
+  | counter < 1 = findTracker code content 0
+  | (code == (splitString (content !! counter) !! 0)) = (content !! counter)
+  | otherwise = findTracker code content (counter + 1)
+
+-- updateUser :: Int -> Int -> [String] -> String -> String -> String -> [String] -> IO ()
+-- updateUser targetIdx counter (x : y : xs) username email password list
+--   | counter < 0 = updateUser targetIdx 0 xs username email password list
+--   | counter == targetIdx = do
+--       let newData = (username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | " ++ "\n")
+--       updateUser targetIdx (counter + 1) ([x] ++ newData : xs) username email password list
+--   | otherwise = updateUser targetIdx (counter + 1) (y:xs) username email password list
+
+-- removeUser :: Int -> [String] -> Int -> [String] -> String
+-- removeUser targetIdx (x : xs) counter list
+--   | counter /= targetIdx = removeUser targetIdx xs (counter + 1) list
+
+delay :: Int -> IO ()
+delay x = threadDelay (x * 1000000)
+
+createCSV filename = do
+  say "creating file . . ." blue
+  root <- getCurrentDirectory
+  writeFile (root ++ "/app/" ++ filename ++ ".csv") ""
+  say ("file " ++ filename ++ ".csv created ✔ . . .") green
+
+-- filename.csv
+-- formatting to csv
+--
+
+findTrackerDetail :: String -> [String] -> Int -> [String] -> String
+findTrackerDetail time content counter xs
+  | counter < 0 = findTrackerDetail time content 0 xs
+  | isInfixOf time (splitLog(content !! counter) !! 0) = do
+    [(content !! counter)] ++ xs
+    findTrackerDetail time content counter xs
+  | otherwise = findTrackerDetail time content (counter + 1) xs
+
+getPassword :: String -> String
+getPassword x = x

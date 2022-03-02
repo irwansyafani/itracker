@@ -1,0 +1,7 @@
+[2022-03-02 06:52:50] (is=10120) DEBUG -- : [do:someting ] started
+[2022-03-02 06:52:50] (is=10120) DEBUG -- : debug
+[2022-03-02 06:52:50] (is=10120)  INFO -- : info
+[2022-03-02 06:52:50] (is=10120)  WARN -- : warn
+[2022-03-02 06:52:50] (is=10120) ERROR -- : error
+[2022-03-02 06:52:50] (is=10120)  INFO -- : Completed 200 OK
+[2022-03-02 06:52:50] (is=10120)  INFO -- : Completed 500 Internal Server Error
