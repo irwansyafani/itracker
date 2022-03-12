@@ -3,6 +3,7 @@ module Helpers where
 import Control.Concurrent
 import Data.List
 import Data.List.Split
+import Data.Time
 import System.Directory
 
 -- =======================================================================
@@ -62,10 +63,19 @@ prompt x = do
     then prompt x
     else return answer
 
+promptChar :: String -> IO String
+promptChar x = do
+  putStrLn (cyan ++ x ++ reset)
+  answer <- getLine
+  if (null answer)
+    then prompt x
+    else return answer
+
 -- splitString :: String -> Maybe [Char] -> String
 -- splitString x null = splitString x " | "
-splitString str  = splitOn " | " str
-splitLog str = splitOn " -- : " str
+splitString str = splitOn " | " str
+
+splitLog str = splitOn "|" str
 
 findUser :: String -> String -> String -> [String] -> Int -> Int
 findUser username email password content counter
@@ -88,7 +98,6 @@ findCompanies (name, address, cType, number, picName, picNumber, manager) conten
       && (manager == (splitString (content !! counter) !! 6)) =
       counter
   | otherwise = findCompanies (name, address, cType, number, picName, picNumber, manager) content (counter + 1)
-
 
 -- findTracker :: String -> String
 findTracker code content counter
@@ -121,13 +130,34 @@ createCSV filename = do
 -- formatting to csv
 --
 
-findTrackerDetail :: String -> [String] -> Int -> [String] -> String
+findTrackerDetail :: String -> [String] -> Int -> [String] -> [String]
 findTrackerDetail time content counter xs
   | counter < 0 = findTrackerDetail time content 0 xs
-  | isInfixOf time (splitLog(content !! counter) !! 0) = do
-    [(content !! counter)] ++ xs
-    findTrackerDetail time content counter xs
+  | counter == length content = xs
+  | isInfixOf time (splitLog (content !! counter) !! 0) = do
+      (content !! counter) : xs
+      findTrackerDetail time content counter xs
   | otherwise = findTrackerDetail time content (counter + 1) xs
+
+-- getDate :: String
+-- getDate = formatTime defaultTimeLocale "[%Y-%m-%d %T]" getCurrentTime
+
+getFlag :: String -> String
+getFlag x =
+  if x == "D"
+    then "<span style=\"color: lightgreen\">DEBUG</span>"
+    else
+      if x == "I"
+        then "<span style=\"color: lightblue\">INFO</span>"
+        else
+          if x == "W"
+            then "<span style=\"color: orange\">WARN</span> "
+            else "<span style=\"color: red\">ERROR</span> "
+
+findOneTracker x content counter
+  | counter < 0 = findOneTracker x content 0
+  | isInfixOf x (content !! counter) = counter
+  | otherwise = findOneTracker x content (counter + 1)
 
 getPassword :: String -> String
 getPassword x = x

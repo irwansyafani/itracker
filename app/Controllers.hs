@@ -131,12 +131,18 @@ checkTrackcer x = do
 
 makeTracker x = do
   say "Moving to Make Tracker . . ." blue
+  createTracker
+  program
 
 updateTracker x = do
   say "Moving to Update Tracker . . ." blue
+  editTracker
+  program
 
 deleteTracker x = do
   say "Moving to Delete Tracker . . ." blue
+  removeTracker
+  program
 
 -- ===========
 -- == EXPORT =
