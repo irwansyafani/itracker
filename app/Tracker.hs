@@ -94,4 +94,4 @@ removeTracker = do
   renameFile (root ++ "/app/tracker-copy.md") (root ++ "/app/tracker.md")
   delay 1
   say "data successfully removed ✔" green
-  delay 2
+  delay 2 
