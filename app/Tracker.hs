@@ -1,6 +1,7 @@
 module Tracker where
 
 import Data.List
+import Data.List.Split
 import Helpers
 import System.Directory
 
@@ -51,6 +52,8 @@ createTracker = do
 -- update
 editTracker :: IO ()
 editTracker = do
+  say "getting file . . ." blue
+  delay 1
   root <- getCurrentDirectory
   content <- readFile (root ++ "/app/tracker.md")
   y <- prompt "Enter Year:"
@@ -59,10 +62,21 @@ editTracker = do
   h <- prompt "Enter Hour:"
   mi <- prompt "Enter Minute:"
   s <- prompt "Enter Seconds:"
+  msg <- prompt "Enter New Message:"
+  say "processing data . . ." blue
+  delay 1
   let date = (y ++ "-" ++ m ++ "-" ++ d ++ " " ++ h ++ ":" ++ mi ++ ":" ++ s)
-  let filtered = findTrackerDetail date (lines content) (-1) []
-  print filtered
-  say "done" red
+  let trackerIdx = findOneTracker date (lines content) (-1)
+  let selected = splitOn "|" ((lines content) !! trackerIdx)
+  let newData = intercalate "|" (take 7 selected ++ [(" " ++ msg ++ " "), ""])
+  let filtered = (unlines ((take trackerIdx (lines content)) ++ [newData] ++ drop (trackerIdx + 1) (lines content)))
+  say "updating file . . ." blue
+  writeFile (root ++ "/app/tracker-copy.md") filtered
+  removeFile (root ++ "/app/tracker.md")
+  renameFile (root ++ "/app/tracker-copy.md") (root ++ "/app/tracker.md")
+  delay 1
+  say "tracker successfully updated ✔" green
+  delay 1
 
 -- delete
 removeTracker :: IO ()
@@ -84,8 +98,8 @@ removeTracker = do
   -- qty <- prompt "Enter Quantity:"
   -- shipper <- prompt "Enter Shipper:"
   -- msg <- prompt "Enter Message:"
-  let str = (y ++ "-" ++ m ++ "-" ++ d ++ " " ++ h ++ ":" ++ mi ++ ":" ++ s)
-  let trackerIdx = findOneTracker str (lines content) (-1)
+  let date = (y ++ "-" ++ m ++ "-" ++ d ++ " " ++ h ++ ":" ++ mi ++ ":" ++ s)
+  let trackerIdx = findOneTracker date (lines content) (-1)
   let filtered = (unlines ((take trackerIdx (lines content)) ++ drop (trackerIdx + 1) (lines content)))
   delay 2
   say ("updating file . . .") blue
@@ -94,4 +108,4 @@ removeTracker = do
   renameFile (root ++ "/app/tracker-copy.md") (root ++ "/app/tracker.md")
   delay 1
   say "data successfully removed ✔" green
-  delay 2 
+  delay 2

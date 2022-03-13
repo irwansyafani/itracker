@@ -139,6 +139,7 @@ findTrackerDetail time content counter xs
       findTrackerDetail time content counter xs
   | otherwise = findTrackerDetail time content (counter + 1) xs
 
+
 -- getDate :: String
 -- getDate = formatTime defaultTimeLocale "[%Y-%m-%d %T]" getCurrentTime
 
@@ -154,6 +155,7 @@ getFlag x =
             then "<span style=\"color: orange\">WARN</span> "
             else "<span style=\"color: red\">ERROR</span> "
 
+findOneTracker :: String -> [String] -> Int -> Int
 findOneTracker x content counter
   | counter < 0 = findOneTracker x content 0
   | isInfixOf x (content !! counter) = counter
