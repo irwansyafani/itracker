@@ -10,7 +10,7 @@ register username email password = do
   root <- getCurrentDirectory
   delay 2
   say ("creating data . . .") blue
-  let newData = (username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | " ++ "\n")
+  let newData = ("| " ++ username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | " ++ "\n")
   delay 2
   say ("adding data . . .") blue
   appendFile (root ++ "/app/users.md") newData

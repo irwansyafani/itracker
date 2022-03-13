@@ -120,25 +120,60 @@ findTracker code content counter
 delay :: Int -> IO ()
 delay x = threadDelay (x * 1000000)
 
+convertUserToCSV :: [String] -> Int -> String -> String -> IO ()
+convertUserToCSV content counter filename baseFile
+  | counter == length content = say "successfully converting data to csv ✔" green
+  | counter == 1 = convertUserToCSV content (counter + 1) filename baseFile
+  | otherwise = do
+      root <- getCurrentDirectory
+      let currentData = (splitLog (content !! counter))
+      if baseFile == "users"
+        then
+          appendFile
+            (root ++ "/app/" ++ filename ++ ".csv")
+            ( currentData !! 1 ++ ","
+                ++ currentData !! 2
+                ++ ","
+                ++ currentData !! 3
+                ++ "\n"
+            )
+        else
+          appendFile
+            (root ++ "/app/" ++ filename ++ ".csv")
+            ( currentData !! 1 ++ ","
+                ++ currentData !! 2
+                ++ ","
+                ++ currentData !! 3
+                ++ ","
+                ++ currentData !! 4
+                ++ ","
+                ++ currentData !! 5
+                ++ ","
+                ++ currentData !! 6
+                ++ ","
+                ++ currentData !! 7
+                ++ "\n"
+            )
+      convertUserToCSV content (counter + 1) filename baseFile
+
 createCSV filename = do
   say "creating file . . ." blue
   root <- getCurrentDirectory
+  baseFile <- prompt "What file do you want to exported? (filename only)"
+  content <- readFile (root ++ "/app/" ++ baseFile ++ ".md")
   writeFile (root ++ "/app/" ++ filename ++ ".csv") ""
+  convertUserToCSV (lines content) 0 filename baseFile
   say ("file " ++ filename ++ ".csv created ✔ . . .") green
 
 -- filename.csv
 -- formatting to csv
 --
 
-findTrackerDetail :: String -> [String] -> Int -> [String] -> [String]
-findTrackerDetail time content counter xs
-  | counter < 0 = findTrackerDetail time content 0 xs
-  | counter == length content = xs
-  | isInfixOf time (splitLog (content !! counter) !! 0) = do
-      (content !! counter) : xs
-      findTrackerDetail time content counter xs
-  | otherwise = findTrackerDetail time content (counter + 1) xs
-
+findTrackerDetail :: String -> [String] -> Int -> String
+findTrackerDetail time content counter
+  | counter < 0 = findTrackerDetail time content 0
+  | isInfixOf time (splitLog (content !! counter) !! 1) = (content !! counter)
+  | otherwise = findTrackerDetail time content (counter + 1)
 
 -- getDate :: String
 -- getDate = formatTime defaultTimeLocale "[%Y-%m-%d %T]" getCurrentTime

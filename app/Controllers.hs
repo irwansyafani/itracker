@@ -151,3 +151,4 @@ exportFileToCSV x = do
   say "Moving to Export File to CSV . . ." blue
   filename <- prompt "Enter File Name"
   createCSV filename
+  program

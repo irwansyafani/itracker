@@ -19,15 +19,20 @@ getTrackerDetail = do
       h <- prompt "Enter Hour:"
       m <- prompt "Enter Minute:"
       s <- prompt "Enter Seconds:"
-      let time = ("[" ++ year ++ "-" ++ month ++ "-" ++ date ++ " " ++ h ++ ":" ++ m ++ ":" ++ s ++ "]")
-      let filtered = findTrackerDetail time (lines content) (-1) []
-      print filtered
+      say "getting data . . ." blue
+      delay 1
+      let time = (year ++ "-" ++ month ++ "-" ++ date ++ " " ++ h ++ ":" ++ m ++ ":" ++ s)
+      let filtered = findTrackerDetail time (lines content) (-1)
+      delay 1
+      putStrLn filtered
+      delay 2
+      -- print (lines content)
     else do
       delay 1
       say "getting data . . ." blue
-      let time = ("[" ++ year ++ "-" ++ month ++ "-" ++ date)
+      let time = ("| " ++ year ++ "-" ++ month ++ "-" ++ date)
       let selected = findTracker time (lines content) (-1)
-      print ((lines content) !! 0)
+      print selected
 
 createTracker :: IO ()
 createTracker = do
@@ -41,7 +46,6 @@ createTracker = do
   delay 2
   say "Processing Data" blue
   let newData = ("| 2022-03-02 06:52:50 " ++ "| " ++ code ++ " | " ++ (getFlag flg) ++ " | " ++ product ++ " | " ++ qty ++ " | " ++ shipper ++ " | " ++ msg ++ " |\n")
-  -- let data = ("| 2022-03-02 06:52:50 " ++ "| " ++ code ++ " | " ++ flag ++ " | " ++ product ++ " | " ++ qty ++ " | " ++ shipper ++ " | " ++ msg ++ " |")
   delay 1
   say "Updating File" blue
   appendFile (root ++ "/app/tracker.md") newData
