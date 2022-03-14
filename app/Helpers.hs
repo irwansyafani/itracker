@@ -80,22 +80,21 @@ splitLog str = splitOn "|" str
 findUser :: String -> String -> String -> [String] -> Int -> Int
 findUser username email password content counter
   | counter < 0 = findUser username email password content 0
-  | (username == (splitString (content !! counter) !! 0))
-      && (email == (splitString (content !! counter) !! 1))
-      && (password == (splitString (content !! counter) !! 2)) =
-      counter
+  | (isInfixOf username  (splitLog (content !! counter) !! 1))
+      && (isInfixOf email (splitLog (content !! counter) !! 2))
+      && (isInfixOf password (splitLog (content !! counter) !! 3)) = counter
   | otherwise = findUser username email password content (counter + 1)
 
 findCompanies :: (String, String, String, String, String, String, String) -> [String] -> Int -> Int
 findCompanies (name, address, cType, number, picName, picNumber, manager) content counter
   | counter < 0 = findCompanies (name, address, cType, number, picName, picNumber, manager) content 0
-  | (name == (splitString (content !! counter) !! 0))
-      && (address == (splitString (content !! counter) !! 1))
-      && (cType == (splitString (content !! counter) !! 2))
-      && (number == (splitString (content !! counter) !! 3))
-      && (picName == (splitString (content !! counter) !! 4))
-      && (picNumber == (splitString (content !! counter) !! 5))
-      && (manager == (splitString (content !! counter) !! 6)) =
+  | (isInfixOf name (splitString (content !! counter) !! 0))
+      && (isInfixOf address (splitString (content !! counter) !! 1))
+      && (isInfixOf cType (splitString (content !! counter) !! 2))
+      && (isInfixOf number (splitString (content !! counter) !! 3))
+      && (isInfixOf picName (splitString (content !! counter) !! 4))
+      && (isInfixOf picNumber (splitString (content !! counter) !! 5))
+      && (isInfixOf manager (splitString (content !! counter) !! 6)) =
       counter
   | otherwise = findCompanies (name, address, cType, number, picName, picNumber, manager) content (counter + 1)
 

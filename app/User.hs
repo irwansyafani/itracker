@@ -22,7 +22,7 @@ updateUser (oldUsername, oldEmail, oldPassword) (username, email, password) = do
   content <- readFile (root ++ "/app/users.md")
   delay 2
   say ("processing data . . .") blue
-  let newData = (username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | ")
+  let newData = ("| " ++ username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | ")
   let userIdx = findUser oldUsername oldEmail oldPassword (lines content) (-1)
   let filtered = unlines (take userIdx (lines content) ++ [newData] ++ drop (userIdx + 1) (lines content))
   delay 2

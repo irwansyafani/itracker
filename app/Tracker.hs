@@ -13,26 +13,25 @@ getTrackerDetail = do
   year <- prompt "Enter Year:"
   month <- prompt "Enter Month:"
   date <- prompt "Enter Date:"
-  isSpesific <- prompt ("Do you want to set spesific time? " ++ reset ++ "(y/n)")
-  if isInfixOf isSpesific "y"
-    then do
-      h <- prompt "Enter Hour:"
-      m <- prompt "Enter Minute:"
-      s <- prompt "Enter Seconds:"
-      say "getting data . . ." blue
-      delay 1
-      let time = (year ++ "-" ++ month ++ "-" ++ date ++ " " ++ h ++ ":" ++ m ++ ":" ++ s)
-      let filtered = findTrackerDetail time (lines content) (-1)
-      delay 1
-      putStrLn filtered
-      delay 2
-      -- print (lines content)
-    else do
-      delay 1
-      say "getting data . . ." blue
-      let time = ("| " ++ year ++ "-" ++ month ++ "-" ++ date)
-      let selected = findTracker time (lines content) (-1)
-      print selected
+  h <- prompt "Enter Hour:"
+  m <- prompt "Enter Minute:"
+  s <- prompt "Enter Seconds:"
+  say "getting data . . ." blue
+  delay 1
+  let time = (year ++ "-" ++ month ++ "-" ++ date ++ " " ++ h ++ ":" ++ m ++ ":" ++ s)
+  let filtered = findTrackerDetail time (lines content) (-1)
+  delay 1
+  let fetched = splitOn "|" filtered
+  say "---" blue
+  say ("date    :" ++ fetched !! 1) green
+  say ("code    :" ++ fetched !! 2) green
+  say ("status  :" ++ fetched !! 3) green
+  say ("product :" ++ fetched !! 4) green
+  say ("quantity:" ++ fetched !! 5) green
+  say ("shipper :" ++ fetched !! 6) green
+  say ("message :" ++ fetched !! 7) green
+  say "---" blue
+  delay 2
 
 createTracker :: IO ()
 createTracker = do

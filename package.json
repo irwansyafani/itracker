@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "cabal build",
+    "clean": "cabal clean",
+    "update": "cabal update",
+    "start": "cabal clean && cabal run"
+  },
+  "author": {
+    "name": "Irwan Syafani",
+    "email": "irwan.khaliq10@gmail.com",
+    "url": "https://irwansyafani.com"
+  }
+}

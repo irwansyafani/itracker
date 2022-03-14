@@ -7,7 +7,25 @@ registerCompany companyName companyAddress companyType companyNumber picName pic
   root <- getCurrentDirectory
   delay 1
   say "inserting data . . ." blue
-  appendFile (root ++ "/app/companies.md") ("\n" ++ "| " ++ companyName ++ " | " ++ companyAddress ++ " | " ++ companyType ++ " | " ++ companyNumber ++ " | " ++ picName ++ " | " ++ picNumber ++ " | " ++ managerName)
+  appendFile
+    (root ++ "/app/companies.md")
+    ( "\n"
+        ++ "| "
+        ++ companyName
+        ++ " | "
+        ++ companyAddress
+        ++ " | "
+        ++ companyType
+        ++ " | "
+        ++ companyNumber
+        ++ " | "
+        ++ picName
+        ++ " | "
+        ++ picNumber
+        ++ " | "
+        ++ managerName
+        ++ " |"
+    )
   delay 1
   say "inserting data success" blue
   delay 1
