@@ -30,6 +30,10 @@ white = "\x1b[37m"
 -- =======================================================================
 -- ========================= F U N C T I O N S ===========================
 -- =======================================================================
+
+-- =================
+--   H E L P E R S
+-- =================
 say x color =
   if (null color)
     then putStrLn ""
@@ -71,20 +75,34 @@ promptChar x = do
     then prompt x
     else return answer
 
--- splitString :: String -> Maybe [Char] -> String
--- splitString x null = splitString x " | "
 splitString str = splitOn " | " str
 
 splitLog str = splitOn "|" str
 
+delay :: Int -> IO ()
+delay x = threadDelay (x * 1000000)
+
+-- date = fmap show getZonedTime
+date = fmap show getCurrentTime
+
+getPassword :: String -> String
+getPassword x = x
+
+-- =================
+--     U S E R S 
+-- =================
 findUser :: String -> String -> String -> [String] -> Int -> Int
 findUser username email password content counter
   | counter < 0 = findUser username email password content 0
-  | (isInfixOf username  (splitLog (content !! counter) !! 1))
+  | (isInfixOf username (splitLog (content !! counter) !! 1))
       && (isInfixOf email (splitLog (content !! counter) !! 2))
-      && (isInfixOf password (splitLog (content !! counter) !! 3)) = counter
+      && (isInfixOf password (splitLog (content !! counter) !! 3)) =
+      counter
   | otherwise = findUser username email password content (counter + 1)
 
+-- =================
+-- C O M P A N I E S
+-- =================
 findCompanies :: (String, String, String, String, String, String, String) -> [String] -> Int -> Int
 findCompanies (name, address, cType, number, picName, picNumber, manager) content counter
   | counter < 0 = findCompanies (name, address, cType, number, picName, picNumber, manager) content 0
@@ -98,26 +116,13 @@ findCompanies (name, address, cType, number, picName, picNumber, manager) conten
       counter
   | otherwise = findCompanies (name, address, cType, number, picName, picNumber, manager) content (counter + 1)
 
--- findTracker :: String -> String
+-- =================
+--  T R A C K E R S
+-- =================
 findTracker code content counter
   | counter < 1 = findTracker code content 0
   | (code == (splitString (content !! counter) !! 0)) = (content !! counter)
   | otherwise = findTracker code content (counter + 1)
-
--- updateUser :: Int -> Int -> [String] -> String -> String -> String -> [String] -> IO ()
--- updateUser targetIdx counter (x : y : xs) username email password list
---   | counter < 0 = updateUser targetIdx 0 xs username email password list
---   | counter == targetIdx = do
---       let newData = (username ++ " | " ++ email ++ " | " ++ (getPassword password) ++ " | " ++ "\n")
---       updateUser targetIdx (counter + 1) ([x] ++ newData : xs) username email password list
---   | otherwise = updateUser targetIdx (counter + 1) (y:xs) username email password list
-
--- removeUser :: Int -> [String] -> Int -> [String] -> String
--- removeUser targetIdx (x : xs) counter list
---   | counter /= targetIdx = removeUser targetIdx xs (counter + 1) list
-
-delay :: Int -> IO ()
-delay x = threadDelay (x * 1000000)
 
 convertUserToCSV :: [String] -> Int -> String -> String -> IO ()
 convertUserToCSV content counter filename baseFile
@@ -164,18 +169,11 @@ createCSV filename = do
   convertUserToCSV (lines content) 0 filename baseFile
   say ("file " ++ filename ++ ".csv created ✔ . . .") green
 
--- filename.csv
--- formatting to csv
---
-
 findTrackerDetail :: String -> [String] -> Int -> String
 findTrackerDetail time content counter
   | counter < 0 = findTrackerDetail time content 0
   | isInfixOf time (splitLog (content !! counter) !! 1) = (content !! counter)
   | otherwise = findTrackerDetail time content (counter + 1)
-
--- getDate :: String
--- getDate = formatTime defaultTimeLocale "[%Y-%m-%d %T]" getCurrentTime
 
 getFlag :: String -> String
 getFlag x =
@@ -195,5 +193,3 @@ findOneTracker x content counter
   | isInfixOf x (content !! counter) = counter
   | otherwise = findOneTracker x content (counter + 1)
 
-getPassword :: String -> String
-getPassword x = x
