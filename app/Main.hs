@@ -1,7 +1,6 @@
 module Main where
-  
-import Helpers
 import Controllers
+import Helpers
 
 main :: IO ()
 main = do

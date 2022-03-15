@@ -1,7 +1,0 @@
-[2022-03-02 06:52:50] (is=10120) DEBUG -- : [author] message
-[2022-03-02 06:52:50] (is=10120) DEBUG -- : [author] debug
-[2022-03-02 06:52:50] (is=10120)  INFO -- : [author] info
-[2022-03-02 06:52:50] (is=10120)  WARN -- : [author] warn
-[2022-03-02 06:52:50] (is=10120) ERROR -- : [author] error
-[2022-03-02 06:52:50] (is=10120)  INFO -- : [author] Completed 200 OK
-[2022-03-02 06:52:50] (is=10120)  INFO -- : [author] Completed 500 Internal Server Error

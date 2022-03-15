@@ -2,8 +2,9 @@ module Controllers where
 
 import Company
 import Helpers
-import User
+import M
 import Tracker
+import User
 
 controller x = do
   if x == "1"
@@ -150,5 +151,5 @@ deleteTracker x = do
 exportFileToCSV x = do
   say "Moving to Export File to CSV . . ." blue
   filename <- prompt "Enter File Name"
-  createCSV filename
+  mCreateCSV filename
   program

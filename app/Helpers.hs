@@ -89,7 +89,7 @@ getPassword :: String -> String
 getPassword x = x
 
 -- =================
---     U S E R S 
+--     U S E R S
 -- =================
 findUser :: String -> String -> String -> [String] -> Int -> Int
 findUser username email password content counter
@@ -192,4 +192,3 @@ findOneTracker x content counter
   | counter < 0 = findOneTracker x content 0
   | isInfixOf x (content !! counter) = counter
   | otherwise = findOneTracker x content (counter + 1)
-
