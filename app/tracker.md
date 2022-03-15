@@ -6,5 +6,5 @@
 | 0x00000000000000003 | 10120 | <span style="color: lightblue">INPUT</span> |            |          |         | Completed 500 Internal Server Error |
 | 0x00000000000000004 | 10120 | <span style="color: lightblue">INFO</span>  | Ultra Milk | 12       | Juan    | -                                   |
 | 0x00000000000000005 | 10120 | <span style="color: red">ERROR</span>       | Ultra Milk | 12       | Juan    | -                                   |
-| 0x00000000000000006 | 10120 | <span style="color: lightblue">INFO</span>  | Ultra Milk | 12       | DHL     | -                                   |
-| 0x00000000000000007 | 10120 | <span style="color: lightblue">INFO</span>  | Ultra Milk | 1        | Juan    | Altero Massaco                      |
+| 0x00000000000000006 | 10120 | <span style="color: lightblue">INFO</span>  | Ultra Milk | 12       | DHL     | perfect |
+| 0x00000000000000009 | 10120 | <span style="color: lightblue">INFO</span> | Ultra Milk | 16 | Juan | - |

@@ -1,10 +1,7 @@
 module Controllers where
 
-import Company
 import Helpers
 import M
-import Tracker
-import User
 
 controller x = do
   if x == "1"
@@ -54,72 +51,26 @@ program = do
 -- = U S E R =
 -- ===========
 createAccount x = do
-  say "Moving to Create Account . . ." blue
-  username <- prompt "Enter Username:"
-  email <- prompt "Enter Email:"
-  password <- prompt "Enter Password:"
-  register username email password
-  say "Creating your account . . ." blue
-  say "Account Successfully Created ✔" green
+  mCreatingAccount
   program
 
 updateAccount x = do
-  say "Moving to Update Account . . ." blue
-  oldUsername <- prompt "Enter Old Username:"
-  oldEmail <- prompt "Enter Old Email:"
-  oldPassword <- prompt "Enter Old Password:"
-  username <- prompt "Enter Username:"
-  email <- prompt "Enter Email:"
-  password <- prompt "Enter Password:"
-  updateUser (oldUsername, oldEmail, oldPassword) (username, email, password)
+  mUpdatingAccount
   program
 
 deleteAccount x = do
-  say "Moving to Delete Account . . ." blue
-  username <- prompt "Enter Username:"
-  email <- prompt "Enter Email:"
-  password <- prompt "Enter Password:"
-  deleteUser username email password
+  mDeletingAccount
   program
 
 -- ===========
 -- = COMPANY =
 -- ===========
 createCompanyProfile x = do
-  say "Moving to Create Company Profile . . ." blue
-  say "" reset
-  say "================================================" red
-  say "THIS INFORMATION CAN NOT BE CHANGE AFTER CREATED" red
-  say "            BE AWARE EVERY INFORMATION          " red
-  say "             THAT YOU WANT TO SUBMIT            " red
-  say "================================================" red
-  say "================================================" red
-  say "If there is information  that you want to change" red
-  say "       you can exit the current process and     " red
-  say "                 start the new one              " red
-  say "================================================" red
-  say "" reset
-  delay 3
-  companyName <- prompt "Enter Name of Company:"
-  companyAddress <- prompt "Enter Address of Company:"
-  companyType <- prompt "Enter Business Type of Company:"
-  companyNumber <- prompt "Enter Contact Number of Company:"
-  picName <- prompt "Enter Name of PIC of Company:"
-  picNumber <- prompt "Enter Contact Number of PIC of Company:"
-  managerName <- prompt "Enter Name of Head Manager of Company:"
-  registerCompany companyName companyAddress companyType companyNumber picName picNumber managerName
+  mCreateCompanyProfile
   program
 
 deleteCompanyProfile x = do
-  say "Moving to Delete Company Profile . . ." blue
-  companyName <- prompt "Enter Name of Company:"
-  companyAddress <- prompt "Enter Address of Company:"
-  companyType <- prompt "Enter Business Type of Company:"
-  companyNumber <- prompt "Enter Contact Number of Company:"
-  picName <- prompt "Enter Name of PIC of Company:"
-  picNumber <- prompt "Enter Contact Number of PIC of Company:"
-  managerName <- prompt "Enter Name of Head Manager of Company:"
-  removeCompany companyName companyAddress companyType companyNumber picName picNumber managerName
+  mDeleteCompanyProfile
   program
 
 -- ===========
@@ -127,22 +78,22 @@ deleteCompanyProfile x = do
 -- ===========
 checkTrackcer x = do
   say "Moving to Check Tracker . . ." blue
-  getTrackerDetail
+  mGetTracker
   program
 
 makeTracker x = do
   say "Moving to Make Tracker . . ." blue
-  createTracker
+  mMakeTracker
   program
 
 updateTracker x = do
   say "Moving to Update Tracker . . ." blue
-  editTracker
+  mUpdateTracker
   program
 
 deleteTracker x = do
   say "Moving to Delete Tracker . . ." blue
-  removeTracker
+  mDeleteTracker
   program
 
 -- ===========

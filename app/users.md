@@ -1,4 +1,4 @@
 | username | email | password |
 | -------- | ----- | -------- |
 | ab | ab@gmail.com | ab | 
-| as | as@as.com | as | 
+| uy | uy@gmail.com | uy | 
