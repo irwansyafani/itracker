@@ -5,6 +5,7 @@ import Data.List
 import Data.List.Split
 import Data.Time
 import System.Directory
+import System.Random
 
 -- =======================================================================
 -- ========================= V A R I A B L E S ===========================
@@ -192,3 +193,12 @@ findOneTracker x content counter
   | counter < 0 = findOneTracker x content 0
   | isInfixOf x (content !! counter) = counter
   | otherwise = findOneTracker x content (counter + 1)
+
+logger activity = do
+  say "logging . . ." blue
+  delay 1
+  root <- getCurrentDirectory
+  let path = (root ++ "/app/activities.log")
+  say "logged . . ." blue
+  delay 1
+  appendFile path ("\n" ++ activity)

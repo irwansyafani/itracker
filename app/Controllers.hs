@@ -3,104 +3,125 @@ module Controllers where
 import Helpers
 import M
 
-controller x = do
+controller x id = do
   if x == "1"
-    then createAccount x
+    then createAccount id
     else
       if x == "2"
-        then updateAccount x
+        then updateAccount id
         else
           if x == "3"
-            then deleteAccount x
+            then deleteAccount id
             else
               if x == "4"
-                then createCompanyProfile x
+                then createCompanyProfile id
                 else
                   if x == "5"
-                    then checkTrackcer x
+                    then checkTrackcer id
                     else
                       if x == "6"
-                        then makeTracker x
+                        then makeTracker id
                         else
                           if x == "7"
-                            then updateTracker x
+                            then updateTracker id
                             else
                               if x == "8"
-                                then deleteTracker x
+                                then deleteTracker id
                                 else
                                   if x == "9"
-                                    then exportFileToCSV x
-                                    else deleteCompanyProfile x
+                                    then exportFileToCSV id
+                                    else deleteCompanyProfile id
 
 -- =======================================================================
 -- ========================= F U N C T I O N S ===========================
 -- =======================================================================
 
-program = do
+-- program :: String -> IO String
+program id = do
   showMenu
   say "What would you like to do? " cyan
   reqCommand <- getLine
   if (null reqCommand)
-    then say "Thank you for using iSupply" blue
+    then do say "Thank you for using iTracker" blue
     else do
       if ((read reqCommand) `elem` [1 .. 10])
-        then do controller reqCommand
-        else putStrLn "\x1b[31mCommand Denied\x1b[0m"
+        then do controller reqCommand id
+        else do say "Command Denied" red
 
 -- ===========
 -- = U S E R =
 -- ===========
-createAccount x = do
+createAccount uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "INFO -- : admin is creating account")
   mCreatingAccount
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin is successfully create account")
+  program uniqueID
 
-updateAccount x = do
+updateAccount uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "WARN -- : admin is updating account")
   mUpdatingAccount
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin is successfully update account")
+  program uniqueID
 
-deleteAccount x = do
+deleteAccount uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "WARN -- : admin is removing account")
   mDeletingAccount
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin is remove account")
+  program uniqueID
 
 -- ===========
 -- = COMPANY =
 -- ===========
-createCompanyProfile x = do
+createCompanyProfile uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "INFO -- : admin is creating company profile")
   mCreateCompanyProfile
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin is successfully created company profile")
+  program uniqueID
 
-deleteCompanyProfile x = do
+deleteCompanyProfile uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "WARN -- : admin is removing company profile")
   mDeleteCompanyProfile
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin is successfully removed company profile")
+  program uniqueID
 
 -- ===========
 -- = TRACKER =
 -- ===========
-checkTrackcer x = do
+checkTrackcer uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "DEBUG -- : admin is checking a tracker")
   say "Moving to Check Tracker . . ." blue
   mGetTracker
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin was checked a tracker")
+  program uniqueID
 
-makeTracker x = do
+makeTracker uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "INFO -- : admin is creating a tracker")
   say "Moving to Make Tracker . . ." blue
   mMakeTracker
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin was create a tracker")
+  program uniqueID
 
-updateTracker x = do
+updateTracker uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "WARN -- : admin is updating a tracker")
   say "Moving to Update Tracker . . ." blue
   mUpdateTracker
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin was update a tracker")
+  program uniqueID
 
-deleteTracker x = do
+deleteTracker uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "WARN -- : admin is removing a tracker")
   say "Moving to Delete Tracker . . ." blue
   mDeleteTracker
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin was removed a tracker")
+  program uniqueID
 
 -- ===========
 -- == EXPORT =
 -- ===========
-exportFileToCSV x = do
+exportFileToCSV uniqueID = do
+  mLogger ("[" ++ uniqueID ++ "] " ++ "INFO -- : admin is exporting a file")
   say "Moving to Export File to CSV . . ." blue
   filename <- prompt "Enter File Name"
   mCreateCSV filename
-  program
+  mLogger ("[" ++ uniqueID ++ "] " ++ "SUCCESS -- : admin was exported a file")
+  program uniqueID

@@ -10,6 +10,11 @@ import User
 
 newtype Stack a = Stack {unStack :: StateT Int (WriterT [Int] IO) a}
 
+logging :: String -> Stack ()
+logging x = Stack $ do
+  lift $ lift $ do logger x
+  return ()
+
 creatingCSV :: String -> Stack ()
 creatingCSV x = Stack $ do
   lift $ lift $ do createCSV x
@@ -152,3 +157,6 @@ mUpdatingAccount = injection updatingAccount
 
 mCreatingAccount :: IO [Int]
 mCreatingAccount = injection creatingAccount
+
+mLogger :: String -> IO [Int]
+mLogger x = injection $ logging x

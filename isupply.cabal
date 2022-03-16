@@ -35,6 +35,7 @@ executable isupply
                       directory,
                       split,
                       time,
-                      transformers
+                      transformers,
+                      random
     hs-source-dirs:   app
     default-language: Haskell2010

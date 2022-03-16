@@ -1,0 +1,22 @@
+[ID] STATUS -- : message
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] INFO -- : admin is creating account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] SUCCESS -- : admin is successfully create account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] WARN -- : admin is updating account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] SUCCESS -- : admin is successfully update account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] WARN -- : admin is removing account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] SUCCESS -- : admin is remove account
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] INFO -- : admin is creating company profile
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] SUCCESS -- : admin is successfully created company profile
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] DEBUG -- : admin is checking a tracker
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] SUCCESS -- : admin was checked a tracker
+[jsxanrbutvryfyaszpbknlnoslttofvegonbmzwtwans] INFO -- : admin is creating a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] INFO -- : admin is creating a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] SUCCESS -- : admin was create a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] WARN -- : admin is updating a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] SUCCESS -- : admin was update a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] WARN -- : admin is removing a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] SUCCESS -- : admin was removed a tracker
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] INFO -- : admin is exporting a file
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] SUCCESS -- : admin was exported a file
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] WARN -- : admin is removing company profile
+[mpmhwxohizpzigzpoonbxfjayqsxuwoenundybnewans] SUCCESS -- : admin is successfully removed company profile
