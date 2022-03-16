@@ -131,16 +131,6 @@
   (major1) == 9 && (major2) <  2 || \
   (major1) == 9 && (major2) == 2 && (minor) <= 1)
 #endif /* MIN_TOOL_VERSION_runghc */
-/* tool strip-13.0 */
-#ifndef TOOL_VERSION_strip
-#define TOOL_VERSION_strip "13.0"
-#endif /* TOOL_VERSION_strip */
-#ifndef MIN_TOOL_VERSION_strip
-#define MIN_TOOL_VERSION_strip(major1,major2,minor) (\
-  (major1) <  13 || \
-  (major1) == 13 && (major2) <  0 || \
-  (major1) == 13 && (major2) == 0 && (minor) <= 0)
-#endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_COMPONENT_ID
 #define CURRENT_COMPONENT_ID "isupply-0.1.0.0-inplace-isupply"

@@ -41,7 +41,7 @@ program = do
   say "What would you like to do? " cyan
   reqCommand <- getLine
   if (null reqCommand)
-    then say "Thank you for using iSupply" blue
+    then say "Thank you for using iTracker" blue
     else do
       if ((read reqCommand) `elem` [1 .. 10])
         then do controller reqCommand
