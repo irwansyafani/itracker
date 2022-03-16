@@ -44,7 +44,7 @@ welcoming =
   do
     putStrLn cyan
     putStrLn ""
-    putStrLn "           W E L C O  M E   T O   i S U P P L Y           "
+    putStrLn "           W E L C O  M E   T O   i T R A C K E R           "
     putStrLn reset
 
 showMenu = do
